@@ -489,9 +489,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012c20d1b3cbfc84aa45b8a7291b6f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallPrefab: {fileID: 1203723691025132, guid: 549c702052de1c6468e769a223a4958f, type: 2}
-  carpetPrefab: {fileID: 0}
   mapFile: {fileID: 4900000, guid: e4650d049dad5684d837cab034c2fda3, type: 3}
+  useThinWall: 1
+  wallBigPrefab: {fileID: 1203723691025132, guid: 549c702052de1c6468e769a223a4958f,
+    type: 2}
+  wallCenterPrefab: {fileID: 1760951054008528, guid: 53d36c60139e3e74dad22ea05b4fd3c6,
+    type: 2}
+  wallCornerPrefab: {fileID: 1112548723929700, guid: 5b028c02860d7ed4da0d6f4020ac61a4,
+    type: 2}
+  wallDoubleCornerPrefab: {fileID: 1126471568852648, guid: 857ef20fc12ee984e9e3761ea6c400e6,
+    type: 2}
+  wallCrossPrefab: {fileID: 1628894782428458, guid: ca689d5f6fb39d74db17782e1a32221e,
+    type: 2}
+  carpetPrefab: {fileID: 0}
   floor: {fileID: 1333020045}
   playerPrefab: {fileID: 1581927513274004, guid: a447814b7feedaf4792324df3911cd2f,
     type: 2}
