@@ -7,7 +7,7 @@ public class Map {
 	
 	// Type of a map tile : it is associated to a value for the tile
 	public enum MapTileType{
-		Wall, Floor, Carpet, NotDefined
+		Floor, Wall, Carpet, NotDefined
 	};
 
 	// Class to be used to store a vertex in the graph
@@ -27,10 +27,12 @@ public class Map {
 	int height;							// Map height
 	int width;							// Map width
 	private TileInfo[][] mapTiles;		// the grid of tile
+	private Vector2 playerSpawnerPosition;	// Position of the player spawner
 
 	public Map( int height, int width ){
 		this.height = height;
 		this.width = width;
+		this.playerSpawnerPosition = new Vector2();
 
 		// Creating empty matrix
 		this.mapTiles = new TileInfo[height][];
@@ -51,6 +53,14 @@ public class Map {
 	public int Width {
 		get {
 			return width;
+		}
+	}
+	public Vector2 PlayerSpawnerPosition {
+		get {
+			return playerSpawnerPosition;
+		}
+		set {
+			playerSpawnerPosition = value;
 		}
 	}
 
@@ -141,6 +151,18 @@ public class Map {
 				for( int x = 0; x < width; x++ ){
 					m.addTile( x, height-1-y, Map.typeIndexToType( int.Parse(mapLine[x]) ) );
 				}
+			}
+
+			// Player
+			int playerSpawnerX = int.Parse( lines[lineIt][0] );
+			int playerSpawnerY = int.Parse( lines[lineIt][1] );
+			lineIt++;
+			if( m.isUsefulPosition( playerSpawnerX, playerSpawnerY ) ){
+				m.PlayerSpawnerPosition = new Vector2(playerSpawnerX, playerSpawnerY);
+			}
+			else{
+				Debug.LogError ( "Map: incorrect player spawner position" );
+				throw new UnityEngine.UnityException( "Map: incorrect player spawner position" );
 			}
 
 			return m;

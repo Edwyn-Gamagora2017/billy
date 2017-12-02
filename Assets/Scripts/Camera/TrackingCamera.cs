@@ -15,7 +15,7 @@ public class TrackingCamera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (target) {
-			this.transform.rotation = Quaternion.LookRotation ( (target.position - this.transform.position).normalized, Vector3.up );
+			this.transform.LookAt ( target.position.normalized );
 		}
 	}
 }

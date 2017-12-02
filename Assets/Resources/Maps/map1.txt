@@ -1,14 +1,20 @@
+# 0 : Floor
+# 1 : Wall
+
 # Map format: H W
 10 8
 
 # Map format: types ( 0,0 -> bottom left ); it will ignore values that are not types (such as 5, in this example)
-0 0 0 0 0 0 0 0
-0 1 0 1 1 1 1 0
-0 1 0 1 1 1 0 0
-0 1 1 1 1 1 0 0
-0 1 1 1 1 1 1 0
-0 1 1 0 0 0 0 0
-0 1 1 1 1 1 1 0
-0 1 0 1 1 1 1 0
-0 1 0 1 1 1 1 0
-0 0 0 0 0 0 0 0
+1 1 1 1 1 1 1 1
+1 0 1 0 0 0 0 1
+1 0 1 0 0 0 1 1
+1 0 0 0 0 0 1 1
+1 0 0 0 0 0 0 1
+1 0 0 1 1 1 1 1
+1 0 0 0 1 0 0 1
+1 0 1 0 0 0 0 1
+1 0 1 0 0 0 0 1
+1 1 1 1 1 1 1 1
+
+# player
+1 8

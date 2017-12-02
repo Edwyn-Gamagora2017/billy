@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour {
 	float moveStep = 4f;
 	float rotationStep = 3f;
 
+	float old_y_position;	// stores the position of the player in the last frame (useful to check if the player is jumping)
+
 	Rigidbody rigidyBody;	// RigidyBody useful to apply forces
 
 	[SerializeField]
@@ -25,8 +27,11 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate () {
 		// Jump
 		if( Input.GetKeyDown( KeyCode.Space ) ){
-			this.rigidyBody.AddForce( new Vector3( 0,5,0 ), ForceMode.Impulse );
+			if( Mathf.Approximately( this.transform.position.y, old_y_position ) ){
+				this.rigidyBody.AddForce( new Vector3( 0,3,0 ), ForceMode.Impulse );
+			}
 		}
+		old_y_position = this.transform.position.y;
 		// Move
 		if( Input.GetKey( KeyCode.LeftArrow ) ){
 			this.transform.Rotate ( new Vector3(0,-moveStep,0) );
