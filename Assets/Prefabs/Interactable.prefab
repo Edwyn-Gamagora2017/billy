@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 65848195957168912}
   - component: {fileID: 23661805358129820}
   - component: {fileID: 54345968660430806}
+  - component: {fileID: 114507045320784692}
   m_Layer: 0
   m_Name: Interactable
   m_TagString: Untagged
@@ -66,8 +67,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1387352295589816}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: -0.1, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2, y: 0.5, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4367734682001938}
@@ -163,3 +164,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8110a0fb5b30dbb4a8520079fb40cd47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114507045320784692
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1387352295589816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 806e6191502f228499cc0ec92cf943bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitColor: {r: 0.862069, g: 1, b: 0, a: 1}

@@ -34,6 +34,8 @@ public class MapView : MonoBehaviour {
 	GameObject floor;
 	[SerializeField]
 	GameObject playerPrefab;
+	[SerializeField]
+	GameObject objectPrefab;
 
 	/* PROPERTIES */
 	public Map MapModel {
@@ -63,6 +65,10 @@ public class MapView : MonoBehaviour {
 		GameObject player = Instantiate( playerPrefab, this.transform );
 		player.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, 0, -this.mapModel.Height/2f+ position.y +0.5f);
 	}
+	private void createObject( Vector2 position ){
+		GameObject obj = Instantiate( objectPrefab, this.transform );
+		obj.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, 0.25f, -this.mapModel.Height/2f+ position.y +0.5f);
+	}
 
 	// Create map Tiles
 	private void drawMap(){
@@ -83,6 +89,8 @@ public class MapView : MonoBehaviour {
 			}
 			// Create Player
 			this.createPlayer( this.mapModel.PlayerSpawnerPosition );
+			// Create Object
+			this.createObject( this.mapModel.ObjectSpawnerPosition );
 			// Adjust the camera
 			Camera mapCamera = GameObject.FindObjectOfType<Camera>();
 			if( mapCamera != null ){

@@ -375,23 +375,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c78f6ad54b5d94c4cabc35acea25ac3d, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &633426347 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1387352295589816, guid: 496b5e1fa40163846980b40f649bec74,
-    type: 2}
-  m_PrefabInternal: {fileID: 1026267508}
---- !u!114 &633426348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 633426347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 806e6191502f228499cc0ec92cf943bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitColor: {r: 0.862069, g: 1, b: 0, a: 1}
 --- !u!4 &633426353 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4697544711650736, guid: 496b5e1fa40163846980b40f649bec74,
@@ -504,6 +487,8 @@ MonoBehaviour:
   carpetPrefab: {fileID: 0}
   floor: {fileID: 1333020045}
   playerPrefab: {fileID: 1581927513274004, guid: a447814b7feedaf4792324df3911cd2f,
+    type: 2}
+  objectPrefab: {fileID: 1387352295589816, guid: 496b5e1fa40163846980b40f649bec74,
     type: 2}
 --- !u!4 &942567526
 Transform:

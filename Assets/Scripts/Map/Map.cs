@@ -28,11 +28,13 @@ public class Map {
 	int width;							// Map width
 	private TileInfo[][] mapTiles;		// the grid of tile
 	private Vector2 playerSpawnerPosition;	// Position of the player spawner
+	private Vector2 objectSpawnerPosition;	// Position of the object spawner
 
 	public Map( int height, int width ){
 		this.height = height;
 		this.width = width;
 		this.playerSpawnerPosition = new Vector2();
+		this.objectSpawnerPosition = new Vector2();
 
 		// Creating empty matrix
 		this.mapTiles = new TileInfo[height][];
@@ -61,6 +63,14 @@ public class Map {
 		}
 		set {
 			playerSpawnerPosition = value;
+		}
+	}
+	public Vector2 ObjectSpawnerPosition {
+		get {
+			return objectSpawnerPosition;
+		}
+		set {
+			objectSpawnerPosition = value;
 		}
 	}
 
@@ -163,6 +173,18 @@ public class Map {
 			else{
 				Debug.LogError ( "Map: incorrect player spawner position" );
 				throw new UnityEngine.UnityException( "Map: incorrect player spawner position" );
+			}
+
+			// Object
+			int objectSpawnerX = int.Parse( lines[lineIt][0] );
+			int objectSpawnerY = int.Parse( lines[lineIt][1] );
+			lineIt++;
+			if( m.isUsefulPosition( objectSpawnerX, objectSpawnerY ) ){
+				m.ObjectSpawnerPosition = new Vector2(objectSpawnerX, objectSpawnerY);
+			}
+			else{
+				Debug.LogError ( "Map: incorrect object spawner position" );
+				throw new UnityEngine.UnityException( "Map: incorrect object spawner position" );
 			}
 
 			return m;
