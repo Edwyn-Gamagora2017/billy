@@ -87,11 +87,6 @@ public class MapView : MonoBehaviour {
 					this.tileGameObjects.Add( new KeyValuePair<int, int>( y,x ), this.createMapTile( type, x, y ) );
 				}
 			}
-			// Adjust Floor
-			/*if(floor != null){
-				floor.transform.localScale = new Vector3 ( this.mapModel.Width-(useThinWall?0.9f:0f), 0.2f, this.mapModel.Height-(useThinWall?0.9f:0f));
-				floor.transform.position = new Vector3 ( 0, -0.1f, 0 );
-			}*/
 			// Create Player
 			this.createPlayer( this.mapModel.PlayerSpawnerPosition );
 			// Create Object
@@ -104,6 +99,11 @@ public class MapView : MonoBehaviour {
 				//mapCamera.transform.position = new Vector3( this.mapModel.Width/2f-0.5f, this.mapModel.Height/2f-0.5f, -1 );	// 0.5 is the size of a half of the tile
 				//mapCamera.orthographicSize = Mathf.Max( this.mapModel.Width/2f, this.mapModel.Height/2f );
 			}
+			// Adjust Floor
+			/*if(floor != null){
+				floor.transform.localScale = new Vector3 ( this.mapModel.Width-(useThinWall?0.9f:0f), 0.2f, this.mapModel.Height-(useThinWall?0.9f:0f));
+				floor.transform.position = new Vector3 ( 0, -0.1f, 0 );
+			}*/
 		}
 	}
 
@@ -114,8 +114,9 @@ public class MapView : MonoBehaviour {
 
 		switch( type ){
 		case Map.MapTileType.Wall:
-			result = createWall( Mathf.RoundToInt(x), Mathf.RoundToInt(y) );
+			result = createWall (Mathf.RoundToInt (x), Mathf.RoundToInt (y));
 			tilePosition.y = 0.9f;
+			createMapTileView (x, y, Map.MapTileType.Floor);
 			break;
 		case Map.MapTileType.Floor:
 			result = createFloor( Mathf.RoundToInt(x), Mathf.RoundToInt(y) );
