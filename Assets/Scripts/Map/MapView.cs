@@ -26,16 +26,20 @@ public class MapView : MonoBehaviour {
 	GameObject wallDoubleCornerPrefab;
 	[SerializeField]
 	GameObject wallCrossPrefab;
+	// Floor
+	[SerializeField]
+	GameObject floorPrefab;
 	// Carpet
 	[SerializeField]
 	GameObject carpetPrefab;
 
 	[SerializeField]
-	GameObject floor;
-	[SerializeField]
 	GameObject playerPrefab;
 	[SerializeField]
 	GameObject objectPrefab;
+
+	[SerializeField]
+	GameObject simulationMap;
 
 	/* PROPERTIES */
 	public Map MapModel {
@@ -48,6 +52,7 @@ public class MapView : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		MapModel = Map.read ( mapFile.text );
+		GameObject.Destroy (simulationMap);
 	}
 	
 	// Update is called once per frame
@@ -83,10 +88,10 @@ public class MapView : MonoBehaviour {
 				}
 			}
 			// Adjust Floor
-			if(floor != null){
+			/*if(floor != null){
 				floor.transform.localScale = new Vector3 ( this.mapModel.Width-(useThinWall?0.9f:0f), 0.2f, this.mapModel.Height-(useThinWall?0.9f:0f));
 				floor.transform.position = new Vector3 ( 0, -0.1f, 0 );
-			}
+			}*/
 			// Create Player
 			this.createPlayer( this.mapModel.PlayerSpawnerPosition );
 			// Create Object
@@ -94,6 +99,7 @@ public class MapView : MonoBehaviour {
 			// Adjust the camera
 			Camera mapCamera = GameObject.FindObjectOfType<Camera>();
 			if( mapCamera != null ){
+				mapCamera.GetComponent<TrackingCamera> ().Target = this.gameObject.transform;
 				mapCamera.transform.position = new Vector3( 0, this.mapModel.Height+1, 0 );	// 0.5 is the size of a half of the tile
 				//mapCamera.transform.position = new Vector3( this.mapModel.Width/2f-0.5f, this.mapModel.Height/2f-0.5f, -1 );	// 0.5 is the size of a half of the tile
 				//mapCamera.orthographicSize = Mathf.Max( this.mapModel.Width/2f, this.mapModel.Height/2f );
@@ -110,6 +116,10 @@ public class MapView : MonoBehaviour {
 		case Map.MapTileType.Wall:
 			result = createWall( Mathf.RoundToInt(x), Mathf.RoundToInt(y) );
 			tilePosition.y = 0.9f;
+			break;
+		case Map.MapTileType.Floor:
+			result = createFloor( Mathf.RoundToInt(x), Mathf.RoundToInt(y) );
+			tilePosition.y = -0.1f;
 			break;
 		}
 
@@ -195,5 +205,9 @@ public class MapView : MonoBehaviour {
 		if( mapModel.getTileType(x,y-1) == Map.MapTileType.Wall ){ result++; }
 		if( mapModel.getTileType(x,y+1) == Map.MapTileType.Wall ){ result++; }
 		return result;
+	}
+
+	private GameObject createFloor( int x, int y ){
+		return GameObject.Instantiate (floorPrefab, this.transform);
 	}
 }
