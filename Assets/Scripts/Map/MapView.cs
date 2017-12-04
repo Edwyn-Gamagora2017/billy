@@ -39,6 +39,11 @@ public class MapView : MonoBehaviour {
 	GameObject objectPrefab;
 
 	[SerializeField]
+	GameController gameController;	// Controls the game rules
+	[SerializeField]
+	GameObject tilesContainer;
+
+	[SerializeField]
 	GameObject simulationMap;
 
 	/* PROPERTIES */
@@ -66,9 +71,15 @@ public class MapView : MonoBehaviour {
 		return result;
 	}
 
-	private void createPlayer( Vector2 position ){
+	public void createPlayer( int id ){
+		Vector2 position = this.mapModel.PlayerSpawnerPosition;
+
 		GameObject player = Instantiate( playerPrefab, this.transform );
 		player.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, 0, -this.mapModel.Height/2f+ position.y +0.5f);
+
+		PlayerController playerCont = player.GetComponent<PlayerController> ();
+		playerCont.setPlayerId (id);
+		gameController.addPlayer ( playerCont );
 	}
 	private void createObject( Vector2 position ){
 		GameObject obj = Instantiate( objectPrefab, this.transform );
@@ -88,7 +99,7 @@ public class MapView : MonoBehaviour {
 				}
 			}
 			// Create Player
-			this.createPlayer( this.mapModel.PlayerSpawnerPosition );
+			this.createPlayer( 0 );
 			// Create Object
 			this.createObject( this.mapModel.ObjectSpawnerPosition );
 			// Adjust the camera
@@ -98,6 +109,12 @@ public class MapView : MonoBehaviour {
 				mapCamera.transform.position = new Vector3( 0, this.mapModel.Height+1, 0 );	// 0.5 is the size of a half of the tile
 				//mapCamera.transform.position = new Vector3( this.mapModel.Width/2f-0.5f, this.mapModel.Height/2f-0.5f, -1 );	// 0.5 is the size of a half of the tile
 				//mapCamera.orthographicSize = Mathf.Max( this.mapModel.Width/2f, this.mapModel.Height/2f );
+			}
+			// Adjust Kill Collider
+			KillCollider killCollider = GetComponentInChildren<KillCollider>();
+			if (killCollider != null) {
+				killCollider.setScale ( this.mapModel.Width, this.mapModel.Height );
+				killCollider.setMinHeight ( 0f );
 			}
 			// Adjust Floor
 			/*if(floor != null){
@@ -133,7 +150,7 @@ public class MapView : MonoBehaviour {
 
 	private GameObject createWall( int x, int y ){
 		if( !useThinWall ){
-			return GameObject.Instantiate (wallBigPrefab, this.transform);
+			return GameObject.Instantiate (wallBigPrefab, tilesContainer.transform);
 		}
 		else{
 			// Evaluate Neigbors
@@ -141,7 +158,7 @@ public class MapView : MonoBehaviour {
 			switch( amountWallNeighbors( x,y ) ){
 			// One Neighbor
 			case 1:
-				result = GameObject.Instantiate (wallCenterPrefab, this.transform);
+				result = GameObject.Instantiate (wallCenterPrefab, tilesContainer.transform);
 				if( mapModel.getTileType(x-1,y) == Map.MapTileType.Wall || mapModel.getTileType(x+1,y) == Map.MapTileType.Wall ){
 					result.gameObject.transform.rotation = Quaternion.Euler( 0,90,0 );
 				}
@@ -150,15 +167,15 @@ public class MapView : MonoBehaviour {
 			case 2:
 				// Colinear neigbors
 				if( mapModel.getTileType(x,y-1) == Map.MapTileType.Wall && mapModel.getTileType(x,y+1) == Map.MapTileType.Wall ){
-					result = GameObject.Instantiate (wallCenterPrefab, this.transform);
+					result = GameObject.Instantiate (wallCenterPrefab, tilesContainer.transform);
 				}
 				else if( mapModel.getTileType(x-1,y) == Map.MapTileType.Wall && mapModel.getTileType(x+1,y) == Map.MapTileType.Wall ){
-					result = GameObject.Instantiate (wallCenterPrefab, this.transform);
+					result = GameObject.Instantiate (wallCenterPrefab, tilesContainer.transform);
 					result.gameObject.transform.rotation = Quaternion.Euler( 0,90,0 );
 				}
 				else{
 					// Perpendicular Neighbors
-					result = GameObject.Instantiate (wallCornerPrefab, this.transform);
+					result = GameObject.Instantiate (wallCornerPrefab, tilesContainer.transform);
 					if( mapModel.getTileType(x,y+1) == Map.MapTileType.Wall && mapModel.getTileType(x+1,y) == Map.MapTileType.Wall ){
 						// No rotation
 					}
@@ -175,7 +192,7 @@ public class MapView : MonoBehaviour {
 				break;
 			// Three Neighbors
 			case 3:
-				result = GameObject.Instantiate (wallDoubleCornerPrefab, this.transform);
+				result = GameObject.Instantiate (wallDoubleCornerPrefab, tilesContainer.transform);
 				if( mapModel.getTileType(x-1,y) != Map.MapTileType.Wall ){
 					// No rotation
 				}
@@ -191,7 +208,7 @@ public class MapView : MonoBehaviour {
 				break;
 			// No Neigbors or Four Neighbors
 			case 4: default:
-				result = GameObject.Instantiate (wallCrossPrefab, this.transform);
+				result = GameObject.Instantiate (wallCrossPrefab, tilesContainer.transform);
 				break;
 			}
 			return result;
@@ -209,6 +226,6 @@ public class MapView : MonoBehaviour {
 	}
 
 	private GameObject createFloor( int x, int y ){
-		return GameObject.Instantiate (floorPrefab, this.transform);
+		return GameObject.Instantiate (floorPrefab, tilesContainer.transform);
 	}
 }
