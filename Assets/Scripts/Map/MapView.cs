@@ -159,33 +159,33 @@ public class MapView : MonoBehaviour {
 			// One Neighbor
 			case 1:
 				result = GameObject.Instantiate (wallCenterPrefab, tilesContainer.transform);
-				if( mapModel.getTileType(x-1,y) == Map.MapTileType.Wall || mapModel.getTileType(x+1,y) == Map.MapTileType.Wall ){
+				if( isWallNeighbor(x-1,y) || isWallNeighbor(x+1,y) ){
 					result.gameObject.transform.rotation = Quaternion.Euler( 0,90,0 );
 				}
 				break;
 			// Two Neighbors
 			case 2:
 				// Colinear neigbors
-				if( mapModel.getTileType(x,y-1) == Map.MapTileType.Wall && mapModel.getTileType(x,y+1) == Map.MapTileType.Wall ){
+				if( isWallNeighbor(x,y-1) && isWallNeighbor(x,y+1) ){
 					result = GameObject.Instantiate (wallCenterPrefab, tilesContainer.transform);
 				}
-				else if( mapModel.getTileType(x-1,y) == Map.MapTileType.Wall && mapModel.getTileType(x+1,y) == Map.MapTileType.Wall ){
+				else if( isWallNeighbor(x-1,y) && isWallNeighbor(x+1,y) ){
 					result = GameObject.Instantiate (wallCenterPrefab, tilesContainer.transform);
 					result.gameObject.transform.rotation = Quaternion.Euler( 0,90,0 );
 				}
 				else{
 					// Perpendicular Neighbors
 					result = GameObject.Instantiate (wallCornerPrefab, tilesContainer.transform);
-					if( mapModel.getTileType(x,y+1) == Map.MapTileType.Wall && mapModel.getTileType(x+1,y) == Map.MapTileType.Wall ){
+					if( isWallNeighbor(x,y+1) && isWallNeighbor(x+1,y) ){
 						// No rotation
 					}
-					else if( mapModel.getTileType(x+1,y) == Map.MapTileType.Wall && mapModel.getTileType(x,y-1) == Map.MapTileType.Wall ){
+					else if( isWallNeighbor(x+1,y) && isWallNeighbor(x,y-1) ){
 						result.gameObject.transform.rotation = Quaternion.Euler( 0,90,0 );
 					}
-					else if( mapModel.getTileType(x,y-1) == Map.MapTileType.Wall && mapModel.getTileType(x-1,y) == Map.MapTileType.Wall ){
+					else if( isWallNeighbor(x,y-1) && isWallNeighbor(x-1,y) ){
 						result.gameObject.transform.rotation = Quaternion.Euler( 0,180,0 );
 					}
-					else if( mapModel.getTileType(x-1,y) == Map.MapTileType.Wall && mapModel.getTileType(x,y+1) == Map.MapTileType.Wall ){
+					else if( isWallNeighbor(x-1,y) && isWallNeighbor(x,y+1) ){
 						result.gameObject.transform.rotation = Quaternion.Euler( 0,270,0 );
 					}
 				}
@@ -193,16 +193,16 @@ public class MapView : MonoBehaviour {
 			// Three Neighbors
 			case 3:
 				result = GameObject.Instantiate (wallDoubleCornerPrefab, tilesContainer.transform);
-				if( mapModel.getTileType(x-1,y) != Map.MapTileType.Wall ){
+				if( !isWallNeighbor(x-1,y) ){
 					// No rotation
 				}
-				if( mapModel.getTileType(x,y+1) != Map.MapTileType.Wall ){
+				if( !isWallNeighbor(x,y+1) ){
 					result.gameObject.transform.rotation = Quaternion.Euler( 0,90,0 );
 				}
-				else if( mapModel.getTileType(x+1,y) != Map.MapTileType.Wall ){
+				else if( !isWallNeighbor(x+1,y) ){
 					result.gameObject.transform.rotation = Quaternion.Euler( 0,180,0 );
 				}
-				else if( mapModel.getTileType(x,y-1) != Map.MapTileType.Wall ){
+				else if( !isWallNeighbor(x,y-1) ){
 					result.gameObject.transform.rotation = Quaternion.Euler( 0,270,0 );
 				}
 				break;
@@ -216,12 +216,15 @@ public class MapView : MonoBehaviour {
 		return null;
 	}
 
+	private bool isWallNeighbor( int x, int y ){
+		return mapModel.getTileType (x, y) == Map.MapTileType.Wall || mapModel.getTileType (x, y) == Map.MapTileType.Hole;
+	}
 	private int amountWallNeighbors( int x, int y ){
 		int result = 0;
-		if( mapModel.getTileType(x-1,y) == Map.MapTileType.Wall ){ result++; }
-		if( mapModel.getTileType(x+1,y) == Map.MapTileType.Wall ){ result++; }
-		if( mapModel.getTileType(x,y-1) == Map.MapTileType.Wall ){ result++; }
-		if( mapModel.getTileType(x,y+1) == Map.MapTileType.Wall ){ result++; }
+		if( isWallNeighbor(x-1,y) ){ result++; }
+		if( isWallNeighbor(x+1,y) ){ result++; }
+		if( isWallNeighbor(x,y-1) ){ result++; }
+		if( isWallNeighbor(x,y+1) ){ result++; }
 		return result;
 	}
 

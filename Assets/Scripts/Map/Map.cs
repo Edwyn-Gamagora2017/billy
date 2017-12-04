@@ -7,7 +7,7 @@ public class Map {
 	
 	// Type of a map tile : it is associated to a value for the tile
 	public enum MapTileType{
-		Floor, Wall, Carpet, NotDefined
+		Floor, Wall, Hole, Carpet, NotDefined
 	};
 
 	// Class to be used to store a vertex in the graph
