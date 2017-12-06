@@ -56,7 +56,8 @@ public class PlayerController : MonoBehaviour {
 			this.transform.Rotate ( new Vector3(0,moveStep,0) );
 		}
 		if( Input.GetKey( KeyCode.UpArrow ) ){
-			this.rigidyBody.MovePosition( this.transform.position + this.transform.forward*moveStep*Time.deltaTime );
+			//this.rigidyBody.AddForce( this.transform.forward*moveStep*Time.deltaTime, ForceMode.VelocityChange );
+			this.rigidyBody.MovePosition( this.rigidyBody.position + this.transform.forward*moveStep*Time.deltaTime );
 			//this.transform.position += new Vector3 ( 0, 0, moveStep );
 		}
 

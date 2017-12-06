@@ -150,7 +150,7 @@ public class MapView : MonoBehaviour {
 		Vector2 position = this.mapModel.PlayerSpawnerPosition;
 
 		GameObject player = Instantiate( playerPrefab, this.transform );
-		player.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, 0, -this.mapModel.Height/2f+ position.y +0.5f);
+		player.gameObject.transform.localPosition = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, 0, -this.mapModel.Height/2f+ position.y +0.5f);
 
 		PlayerController playerCont = player.GetComponent<PlayerController> ();
 		playerCont.setPlayerId (id);

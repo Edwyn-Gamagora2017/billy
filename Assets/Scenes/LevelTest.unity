@@ -210,6 +210,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 218073355}
+--- !u!114 &8906809 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114325080977876072, guid: 40aee4654b72f4042b30162b4f20d206,
+    type: 2}
+  m_PrefabInternal: {fileID: 1194651731}
+  m_Script: {fileID: 11500000, guid: f5e339a4aa8f6b14cb60b6283fc06306, type: 3}
 --- !u!1 &218073354
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +224,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 218073355}
+  - component: {fileID: 218073356}
+  - component: {fileID: 218073357}
   m_Layer: 0
   m_Name: Environment - Example
   m_TagString: Untagged
@@ -246,6 +254,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &218073356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 218073354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11458df93b2f85c4bbd1f0f03d2386d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 8906809}
+  bridge: {fileID: 354815556}
+--- !u!114 &218073357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 218073354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a9028f139dc7f241a6f090071d82878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bridge: {fileID: 354815556}
+  bridgeClosed: 0
 --- !u!1 &300786778
 GameObject:
   m_ObjectHideFlags: 0
