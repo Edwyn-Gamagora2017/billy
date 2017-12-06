@@ -7,7 +7,7 @@ public class Map {
 	
 	// Type of a map tile : it is associated to a value for the tile
 	public enum MapTileType{
-		Floor, Wall, Carpet, NotDefined
+		Floor, Wall, Hole, Carpet, NotDefined
 	};
 
 	// Class to be used to store a vertex in the graph
@@ -28,13 +28,15 @@ public class Map {
 	int width;							// Map width
 	private TileInfo[][] mapTiles;		// the grid of tile
 	private Vector2 playerSpawnerPosition;	// Position of the player spawner
-	private Vector2 objectSpawnerPosition;	// Position of the object spawner
+	private List<BridgeElement> bridges;		// Bridges
+	private List<BridgeButton> bridgeButtons;	// Buttons that activate bridges
 
 	public Map( int height, int width ){
 		this.height = height;
 		this.width = width;
 		this.playerSpawnerPosition = new Vector2();
-		this.objectSpawnerPosition = new Vector2();
+		this.bridges = new List<BridgeElement>();
+		this.bridgeButtons = new List<BridgeButton>();
 
 		// Creating empty matrix
 		this.mapTiles = new TileInfo[height][];
@@ -65,12 +67,20 @@ public class Map {
 			playerSpawnerPosition = value;
 		}
 	}
-	public Vector2 ObjectSpawnerPosition {
+	public List<BridgeElement> Bridges {
 		get {
-			return objectSpawnerPosition;
+			return bridges;
 		}
 		set {
-			objectSpawnerPosition = value;
+			bridges = value;
+		}
+	}
+	public List<BridgeButton> BridgeButtons {
+		get {
+			return bridgeButtons;
+		}
+		set {
+			bridgeButtons = value;
 		}
 	}
 
@@ -102,8 +112,11 @@ public class Map {
 	public bool isDefinedTile( int x, int y ){
 		return this.isValidTilePosition( x,y ) && this.mapTiles[y][x].type != MapTileType.NotDefined;
 	}
+	public bool isHolePosition( int x, int y ){
+		return this.isDefinedTile( x,y ) && this.mapTiles[y][x].type == MapTileType.Hole;
+	}
 	public bool isUsefulPosition( int x, int y ){
-		return this.isDefinedTile( x,y ) && this.mapTiles[y][x].type != MapTileType.Wall;
+		return this.isDefinedTile( x,y ) && this.mapTiles[y][x].type != MapTileType.Wall && this.mapTiles[y][x].type != MapTileType.Hole;
 	}
 
 	public static MapTileType typeIndexToType( int typeIndex )
@@ -175,16 +188,47 @@ public class Map {
 				throw new UnityEngine.UnityException( "Map: incorrect player spawner position" );
 			}
 
-			// Object
-			int objectSpawnerX = int.Parse( lines[lineIt][0] );
-			int objectSpawnerY = int.Parse( lines[lineIt][1] );
+			// Bridges
+			int amountBridges = int.Parse(lines[lineIt][0]);
 			lineIt++;
-			if( m.isUsefulPosition( objectSpawnerX, objectSpawnerY ) ){
-				m.ObjectSpawnerPosition = new Vector2(objectSpawnerX, objectSpawnerY);
+			for( int x = 0; x < amountBridges; x++ ){
+				int bridge_length = int.Parse( lines[lineIt][0] );
+				int bridgeX = int.Parse( lines[lineIt][1] );
+				int bridgeY = int.Parse( lines[lineIt][2] );
+				bool bridge_closed = int.Parse( lines[lineIt][3] ) == 1;
+				bool bridge_orientation = int.Parse( lines[lineIt][4] ) == 1;
+				lineIt++;
+
+				if( m.isHolePosition( bridgeX, bridgeY ) ){
+					m.Bridges.Add( new BridgeElement( x, bridge_length, bridge_closed, bridge_orientation, new Vector2( bridgeX, bridgeY ) ) );
+				}
+				else{
+					throw new UnityEngine.UnityException( "Map: bridge must be in a hole" );
+				}
 			}
-			else{
-				Debug.LogError ( "Map: incorrect object spawner position" );
-				throw new UnityEngine.UnityException( "Map: incorrect object spawner position" );
+
+			// Bridges Buttons
+			int amountBridgeButtons = int.Parse(lines[lineIt][0]);
+			lineIt++;
+			for( int x = 0; x < amountBridgeButtons; x++ ){
+				int bridgeButtonX = int.Parse( lines[lineIt][0] );
+				int bridgeButtonY = int.Parse( lines[lineIt][1] );
+				lineIt++;
+
+				if( m.isUsefulPosition( bridgeButtonX, bridgeButtonY ) ){
+					m.BridgeButtons.Add( new BridgeButton( new Vector2( bridgeButtonX, bridgeButtonY ) ) );
+				}
+				else{
+					throw new UnityEngine.UnityException( "Map: incorrect bridge button position" );
+				}
+				// Associating Bridges
+				int amountBridges_BridgeButtons = int.Parse(lines[lineIt][0]);
+				for( int y = 1; y <= amountBridges_BridgeButtons; y++ ){
+					int bridgeIndex = int.Parse(lines[lineIt][y]);
+					if( bridgeIndex < m.Bridges.Count ){
+						m.BridgeButtons[ x ].addBridge( m.Bridges[ bridgeIndex ] );
+					}
+				}
 			}
 
 			return m;
@@ -215,4 +259,9 @@ public class Map {
 		// Reading Information 
 		return Map.read( reader.ReadToEnd() ); 
 	}
+
+	/*
+	 * 	MAP ELEMENTS
+	 */
+
 }

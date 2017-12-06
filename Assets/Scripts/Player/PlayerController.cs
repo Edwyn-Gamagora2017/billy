@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+	private Player player;
+
 	float moveStep = 4f;
 	float rotationStep = 3f;
 
@@ -14,13 +16,27 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField]
 	PlayerHitController playerHit;
 
+	/**
+	 * GETTERS and SETTERS
+	 */
+	public Player Player {
+		get {
+			return player;
+		}
+	}
+	public void setPlayerId(int id){
+		this.player = new Player(id);
+	}
+
 	void Awake(){
 		this.rigidyBody = GetComponent<Rigidbody> ();
 	}
 
 	// Use this for initialization
 	void Start () {
-		
+		if (player == null) {
+			player = new Player (-1);
+		}
 	}
 	
 	// Update is called once per frame

@@ -7,6 +7,15 @@ public class TrackingCamera : MonoBehaviour {
 	[SerializeField]
 	Transform target;
 
+	public Transform Target {
+		get {
+			return target;
+		}
+		set {
+			target = value;
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		
