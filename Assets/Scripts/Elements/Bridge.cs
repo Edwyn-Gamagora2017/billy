@@ -4,35 +4,34 @@ using UnityEngine;
 
 public class Bridge : MonoBehaviour {
 
-	Vector3 closedPosition;
-	Quaternion closedRotation;
-	Vector3 openedPosition;
-	Quaternion openedRotation;
+	[SerializeField]
+	bool closed;
 
-	private bool closed;
+	Animator animator;
 
 	public bool Closed {
 		get {
 			return closed;
 		}
-		set {
+		set{
 			closed = value;
 		}
 	}
 		
-	public void finishClose(){
-		closedPosition = this.transform.position;
-		closedRotation = this.transform.rotation;
+	public void activateBridge(){
+		animator.SetTrigger("activate");
+	}
+
+	void Awake(){
+		animator = GetComponent<Animator>();
 	}
 
 	// Use this for initialization
 	void Start () {
-		closedPosition = this.transform.position;
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-		this.transform.position = closedPosition;
 	}
 }
