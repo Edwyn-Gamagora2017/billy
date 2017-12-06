@@ -2,24 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bridge : MonoBehaviour {
-
-	[SerializeField]
-	bool closed;
+public class BridgeController : MonoBehaviour {
 
 	Animator animator;
-
-	public bool Closed {
-		get {
-			return closed;
-		}
-		set{
-			closed = value;
-		}
-	}
 		
 	public void activateBridge(){
 		animator.SetTrigger("activate");
+	}
+	public void setInitialStatus( bool initialStatusClosed ){
+		animator.SetInteger("initialStatus",initialStatusClosed?0:1);
 	}
 
 	void Awake(){

@@ -6,6 +6,8 @@ public class MapView : MonoBehaviour {
 
 	Map mapModel;			// stores the map information
 
+	List<BridgeController> bridges;
+
 	[SerializeField]
 	TextAsset mapFile;	// File describing the map
 
@@ -36,7 +38,9 @@ public class MapView : MonoBehaviour {
 	[SerializeField]
 	GameObject playerPrefab;
 	[SerializeField]
-	GameObject objectPrefab;
+	GameObject bridgePrefab;
+	[SerializeField]
+	GameObject bridgeButtonPrefab;
 
 	[SerializeField]
 	GameController gameController;	// Controls the game rules
@@ -54,6 +58,10 @@ public class MapView : MonoBehaviour {
 		}
 	}
 
+	void Awake(){
+		bridges = new List<BridgeController>();
+	}
+
 	// Use this for initialization
 	void Start () {
 		MapModel = Map.read ( mapFile.text );
@@ -62,29 +70,6 @@ public class MapView : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {}
-
-	private GameObject createMapTile( Map.MapTileType type, int x, int y ){
-		GameObject result = null;
-		if( type != Map.MapTileType.NotDefined ){
-			result = createMapTileView (x, y, type);
-		}
-		return result;
-	}
-
-	public void createPlayer( int id ){
-		Vector2 position = this.mapModel.PlayerSpawnerPosition;
-
-		GameObject player = Instantiate( playerPrefab, this.transform );
-		player.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, 0, -this.mapModel.Height/2f+ position.y +0.5f);
-
-		PlayerController playerCont = player.GetComponent<PlayerController> ();
-		playerCont.setPlayerId (id);
-		gameController.addPlayer ( playerCont );
-	}
-	private void createObject( Vector2 position ){
-		GameObject obj = Instantiate( objectPrefab, this.transform );
-		obj.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, 0.25f, -this.mapModel.Height/2f+ position.y +0.5f);
-	}
 
 	// Create map Tiles
 	private void drawMap(){
@@ -100,8 +85,13 @@ public class MapView : MonoBehaviour {
 			}
 			// Create Player
 			this.createPlayer( 0 );
-			// Create Object
-			this.createObject( this.mapModel.ObjectSpawnerPosition );
+			// Create Bridges
+			foreach( BridgeElement bridge in this.mapModel.Bridges ){
+				this.createBridge( bridge );
+			}
+			foreach( BridgeButton button in this.mapModel.BridgeButtons ){
+				this.createBridgeButton( button );
+			}
 			// Adjust the camera
 			Camera mapCamera = GameObject.FindObjectOfType<Camera>();
 			if( mapCamera != null ){
@@ -122,6 +112,14 @@ public class MapView : MonoBehaviour {
 				floor.transform.position = new Vector3 ( 0, -0.1f, 0 );
 			}*/
 		}
+	}
+
+	private GameObject createMapTile( Map.MapTileType type, int x, int y ){
+		GameObject result = null;
+		if( type != Map.MapTileType.NotDefined ){
+			result = createMapTileView (x, y, type);
+		}
+		return result;
 	}
 
 	public GameObject createMapTileView( float x, float y, Map.MapTileType type ){
@@ -146,6 +144,49 @@ public class MapView : MonoBehaviour {
 		}
 
 		return result;
+	}
+
+	public void createPlayer( int id ){
+		Vector2 position = this.mapModel.PlayerSpawnerPosition;
+
+		GameObject player = Instantiate( playerPrefab, this.transform );
+		player.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, 0, -this.mapModel.Height/2f+ position.y +0.5f);
+
+		PlayerController playerCont = player.GetComponent<PlayerController> ();
+		playerCont.setPlayerId (id);
+		gameController.addPlayer ( playerCont );
+	}
+
+	private void createBridge( BridgeElement bridge ){
+		Vector2 position = bridge.position;
+		GameObject obj = Instantiate( bridgePrefab, this.transform );
+		BridgeController controller = obj.GetComponent<BridgeController>();
+
+		obj.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, 0, -this.mapModel.Height/2f+ position.y +0.5f);
+		// initial status
+		controller.setInitialStatus( bridge.Closed );
+		// Length
+		if( bridge.Length > 1 ){
+			obj.gameObject.transform.localScale = new Vector3( bridge.Length, bridge.Length, obj.gameObject.transform.localScale.z );
+			Vector3 old_position = obj.gameObject.transform.position;
+			obj.gameObject.transform.position = new Vector3(old_position.x+(bridge.VerticalOrientation?0f:bridge.Length/2f-0.5f), old_position.y, old_position.z-(!bridge.VerticalOrientation?0f:bridge.Length/2f-0.5f));
+		}
+		// Orientation
+		if( bridge.VerticalOrientation ){
+			obj.gameObject.transform.rotation = Quaternion.Euler( 0,90,0 );
+		}
+
+		bridges.Add( controller );
+	}
+	private void createBridgeButton( BridgeButton bridgeButton ){
+		Vector2 position = bridgeButton.position;
+		GameObject obj = Instantiate( bridgeButtonPrefab, this.transform );
+		obj.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, 0.25f, -this.mapModel.Height/2f+ position.y +0.5f);
+
+		BridgeAction action = obj.GetComponent<BridgeAction>();
+		for( int i = 0; i < bridgeButton.Bridges.Count; i++ ){
+			action.addBridge( this.bridges[ bridgeButton.Bridges[ i ].Index ] );
+		}
 	}
 
 	private GameObject createWall( int x, int y ){

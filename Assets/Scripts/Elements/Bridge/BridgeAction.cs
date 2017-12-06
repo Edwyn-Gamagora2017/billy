@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class BridgeAction : HitColliderAction {
 
-	[SerializeField]
-	Bridge[] bridges;
+	List<BridgeController> bridges;
+
+	public void addBridge( BridgeController action ){
+		this.bridges.Add( action );
+	}
 
 	public override void action(){
-		foreach( Bridge bridge in bridges ){
+		foreach( BridgeController bridge in bridges ){
 			bridge.activateBridge();
 		}
 		this.GetComponent<ChangeColor>().change();
 	}
 
-	public void addBridge( Bridge[] newBridges ){
-		bridges = newBridges;
+	void Awake(){
+		this.bridges = new List<BridgeController>();
 	}
 
 	// Use this for initialization
