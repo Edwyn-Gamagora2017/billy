@@ -229,6 +229,7 @@ public class Map {
 						m.BridgeButtons[ x ].addBridge( m.Bridges[ bridgeIndex ] );
 					}
 				}
+				lineIt++;
 			}
 
 			return m;
