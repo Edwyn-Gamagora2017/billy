@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using BlockElement = MapElement;
+
 // a map is a grid graph composed of tiles with different values
 public class Map {
 	
@@ -30,6 +32,7 @@ public class Map {
 	private Vector2 playerSpawnerPosition;	// Position of the player spawner
 	private List<BridgeElement> bridges;		// Bridges
 	private List<BridgeButton> bridgeButtons;	// Buttons that activate bridges
+	private List<BlockElement> blocks;		// Blocks
 
 	public Map( int height, int width ){
 		this.height = height;
@@ -37,6 +40,7 @@ public class Map {
 		this.playerSpawnerPosition = new Vector2();
 		this.bridges = new List<BridgeElement>();
 		this.bridgeButtons = new List<BridgeButton>();
+		this.blocks = new List<BlockElement>();
 
 		// Creating empty matrix
 		this.mapTiles = new TileInfo[height][];
@@ -81,6 +85,14 @@ public class Map {
 		}
 		set {
 			bridgeButtons = value;
+		}
+	}
+	public List<BlockElement> Blocks {
+		get {
+			return blocks;
+		}
+		set {
+			blocks = value;
 		}
 	}
 
@@ -167,7 +179,7 @@ public class Map {
 
 			Map m = new Map(height, width);
 
-			// Vertices
+			// Tiles
 			for (int y = 0; y < height; y++) {
 				string[] mapLine = lines[lineIt];
 				lineIt++;
@@ -230,6 +242,22 @@ public class Map {
 					}
 				}
 				lineIt++;
+			}
+				
+			// Barriers
+			int amountBlocks = int.Parse(lines[lineIt][0]);
+			lineIt++;
+			for( int x = 0; x < amountBlocks; x++ ){
+				int blockX = int.Parse( lines[lineIt][0] );
+				int blockY = int.Parse( lines[lineIt][1] );
+				lineIt++;
+
+				if( m.isUsefulPosition( blockX, blockY ) ){
+					m.Blocks.Add( new BlockElement( new Vector2( blockX, blockY ) ) );
+				}
+				else{
+					throw new UnityEngine.UnityException( "Map: incorrect block position" );
+				}
 			}
 
 			return m;

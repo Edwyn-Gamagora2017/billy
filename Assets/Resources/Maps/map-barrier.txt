@@ -1,0 +1,45 @@
+# 0 : Floor
+# 1 : Wall
+# 2 : Hole
+
+# Map format: H W
+10 8
+
+# Map format: types ( 0,0 -> bottom left ); it will ignore values that are not types (such as 5, in this example)
+1 1 1 1 1 1 1 1
+1 0 1 0 2 0 0 1
+1 0 0 0 2 0 1 1
+1 0 0 0 2 0 0 1
+1 2 2 0 2 0 0 1
+1 2 2 1 1 1 1 1
+1 0 0 0 1 0 0 1
+1 0 1 0 0 0 1 1
+1 0 1 0 0 0 0 1
+1 1 1 1 1 1 1 1
+
+# player
+1 8
+
+# bridges
+2
+
+# bridge : length x y status(0:open;1:closed) orientation(0:horizontal;1:vertical)
+# bridge 0
+1 4 6 0 0
+# bridge 1
+2 1 5 1 1
+
+# buttons
+1
+
+# button : x y
+# button : nBridges nBridges*bridge_index
+# button 0
+2 7
+2 0 1
+
+# blocks
+1
+
+# block : x y
+6 1

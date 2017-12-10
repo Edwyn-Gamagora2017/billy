@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using BlockElement = MapElement;
+
 public class MapView : MonoBehaviour {
 
 	Map mapModel;			// stores the map information
@@ -41,6 +43,8 @@ public class MapView : MonoBehaviour {
 	GameObject bridgePrefab;
 	[SerializeField]
 	GameObject bridgeButtonPrefab;
+	[SerializeField]
+	GameObject blockPrefab;
 
 	[SerializeField]
 	GameController gameController;	// Controls the game rules
@@ -91,6 +95,10 @@ public class MapView : MonoBehaviour {
 			}
 			foreach( BridgeButton button in this.mapModel.BridgeButtons ){
 				this.createBridgeButton( button );
+			}
+			// Create Blocks
+			foreach( BlockElement block in this.mapModel.Blocks ){
+				this.createBlock( block );
 			}
 			// Adjust the camera
 			Camera mapCamera = GameObject.FindObjectOfType<Camera>();
@@ -187,6 +195,11 @@ public class MapView : MonoBehaviour {
 		for( int i = 0; i < bridgeButton.Bridges.Count; i++ ){
 			action.addBridge( this.bridges[ bridgeButton.Bridges[ i ].Index ] );
 		}
+	}
+	private void createBlock( BlockElement block ){
+		Vector2 position = block.position;
+		GameObject obj = Instantiate( blockPrefab, this.transform );
+		obj.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, obj.transform.localScale.y/2f, -this.mapModel.Height/2f+ position.y +0.5f);
 	}
 
 	private GameObject createWall( int x, int y ){

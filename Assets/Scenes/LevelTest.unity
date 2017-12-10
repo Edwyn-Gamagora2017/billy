@@ -251,6 +251,7 @@ Transform:
   - {fileID: 1108398620}
   - {fileID: 354815554}
   - {fileID: 1194651732}
+  - {fileID: 690214123}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -355,7 +356,7 @@ BoxCollider:
     type: 2}
   m_PrefabInternal: {fileID: 392264551}
   m_GameObject: {fileID: 300786778}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c6efe2d5d2e869f4d871d26c57904614, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -504,6 +505,12 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 65713943635588844, guid: c78f6ad54b5d94c4cabc35acea25ac3d,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: c6efe2d5d2e869f4d871d26c57904614,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c78f6ad54b5d94c4cabc35acea25ac3d, type: 2}
   m_IsPrefabParent: 0
@@ -610,6 +617,58 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 486523918}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &690214122
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 218073355}
+    m_Modifications:
+    - target: {fileID: 4868479533674256, guid: 7932b40a05013494f88cd57da89b51af, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868479533674256, guid: 7932b40a05013494f88cd57da89b51af, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868479533674256, guid: 7932b40a05013494f88cd57da89b51af, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868479533674256, guid: 7932b40a05013494f88cd57da89b51af, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868479533674256, guid: 7932b40a05013494f88cd57da89b51af, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868479533674256, guid: 7932b40a05013494f88cd57da89b51af, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868479533674256, guid: 7932b40a05013494f88cd57da89b51af, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868479533674256, guid: 7932b40a05013494f88cd57da89b51af, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 65273235518905132, guid: 7932b40a05013494f88cd57da89b51af,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7932b40a05013494f88cd57da89b51af, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &690214123 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4868479533674256, guid: 7932b40a05013494f88cd57da89b51af,
+    type: 2}
+  m_PrefabInternal: {fileID: 690214122}
 --- !u!1 &797215259
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,7 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012c20d1b3cbfc84aa45b8a7291b6f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapFile: {fileID: 4900000, guid: f62c7c82c38299e49acba25710f04537, type: 3}
+  mapFile: {fileID: 4900000, guid: b4c6995039876c444bf119412ccb2b1c, type: 3}
   useThinWall: 1
   wallBigPrefab: {fileID: 1203723691025132, guid: 549c702052de1c6468e769a223a4958f,
     type: 2}
@@ -722,6 +781,8 @@ MonoBehaviour:
   bridgePrefab: {fileID: 1203419619664192, guid: 8e5c3d8955e695e459a1a9252d257a7f,
     type: 2}
   bridgeButtonPrefab: {fileID: 1877787281550270, guid: 40aee4654b72f4042b30162b4f20d206,
+    type: 2}
+  blockPrefab: {fileID: 1159237169487336, guid: 7932b40a05013494f88cd57da89b51af,
     type: 2}
   gameController: {fileID: 479813357}
   tilesContainer: {fileID: 1984312245}
