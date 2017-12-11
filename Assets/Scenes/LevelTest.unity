@@ -252,6 +252,7 @@ Transform:
   - {fileID: 354815554}
   - {fileID: 1194651732}
   - {fileID: 1142766535}
+  - {fileID: 580527673}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -635,6 +636,53 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 486523918}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &580527672
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 218073355}
+    m_Modifications:
+    - target: {fileID: 4351708381522056, guid: 7b3d1956a099b5642a6d1ae10891ca2d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351708381522056, guid: 7b3d1956a099b5642a6d1ae10891ca2d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351708381522056, guid: 7b3d1956a099b5642a6d1ae10891ca2d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351708381522056, guid: 7b3d1956a099b5642a6d1ae10891ca2d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351708381522056, guid: 7b3d1956a099b5642a6d1ae10891ca2d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351708381522056, guid: 7b3d1956a099b5642a6d1ae10891ca2d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351708381522056, guid: 7b3d1956a099b5642a6d1ae10891ca2d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351708381522056, guid: 7b3d1956a099b5642a6d1ae10891ca2d, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7b3d1956a099b5642a6d1ae10891ca2d, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &580527673 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4351708381522056, guid: 7b3d1956a099b5642a6d1ae10891ca2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 580527672}
 --- !u!1 &797215259
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +797,8 @@ MonoBehaviour:
   bridgeButtonPrefab: {fileID: 1877787281550270, guid: 40aee4654b72f4042b30162b4f20d206,
     type: 2}
   CollectiblePrefab: {fileID: 1420607071547044, guid: ff1f651c1f98cde4e843baf4f2220da7,
+    type: 2}
+  TargetPrefab: {fileID: 1894676285130368, guid: 7b3d1956a099b5642a6d1ae10891ca2d,
     type: 2}
   gameController: {fileID: 479813357}
   tilesContainer: {fileID: 1984312245}

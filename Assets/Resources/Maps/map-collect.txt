@@ -20,6 +20,9 @@
 # player
 1 8
 
+# target
+1 1
+
 # bridges
 2
 
