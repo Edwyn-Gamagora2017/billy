@@ -67,9 +67,15 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	// Collision to Collectible
-	public bool collect(){
-		Debug.Log ("Collected");
+	// Collisions to Collectible
+	public bool collectScore( int value ){
+		player.addScore ( value );
+		Debug.Log ( "Score" );
+		return true;
+	}
+	public bool collectStar( int value ){
+		player.addScore ( value );
+		Debug.Log ( "Star" );
 		return true;
 	}
 }

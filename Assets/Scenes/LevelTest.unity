@@ -676,22 +676,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &865924743 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1425558442144270, guid: ff1f651c1f98cde4e843baf4f2220da7,
-    type: 2}
-  m_PrefabInternal: {fileID: 1142766534}
---- !u!114 &865924744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 865924743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02e38e7698c6a8f4abd59cc14ed9da53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &942567524
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,7 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012c20d1b3cbfc84aa45b8a7291b6f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapFile: {fileID: 4900000, guid: f62c7c82c38299e49acba25710f04537, type: 3}
+  mapFile: {fileID: 4900000, guid: fd706e0aafcc08a478eb6f46d8fc808c, type: 3}
   useThinWall: 1
   wallBigPrefab: {fileID: 1203723691025132, guid: 549c702052de1c6468e769a223a4958f,
     type: 2}
@@ -739,6 +723,8 @@ MonoBehaviour:
   bridgePrefab: {fileID: 1203419619664192, guid: 8e5c3d8955e695e459a1a9252d257a7f,
     type: 2}
   bridgeButtonPrefab: {fileID: 1877787281550270, guid: 40aee4654b72f4042b30162b4f20d206,
+    type: 2}
+  CollectiblePrefab: {fileID: 1420607071547044, guid: ff1f651c1f98cde4e843baf4f2220da7,
     type: 2}
   gameController: {fileID: 479813357}
   tilesContainer: {fileID: 1984312245}
@@ -822,8 +808,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114051588664107710, guid: ff1f651c1f98cde4e843baf4f2220da7, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ff1f651c1f98cde4e843baf4f2220da7, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1142766535 stripped
