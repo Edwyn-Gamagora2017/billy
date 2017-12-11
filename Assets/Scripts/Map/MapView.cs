@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using TargetElement = MapElement;
+
 public class MapView : MonoBehaviour {
 
 	Map mapModel;			// stores the map information
@@ -43,6 +45,8 @@ public class MapView : MonoBehaviour {
 	GameObject bridgeButtonPrefab;
 	[SerializeField]
 	GameObject CollectiblePrefab;
+	[SerializeField]
+	GameObject TargetPrefab;
 
 	[SerializeField]
 	GameController gameController;	// Controls the game rules
@@ -98,6 +102,9 @@ public class MapView : MonoBehaviour {
 			foreach( CollectibleElement collectible in this.mapModel.Collectibles ){
 				this.createCollectible ( collectible );
 			}
+			// Create Target
+			this.createTarget( this.mapModel.PlayerTarget );
+
 			// Adjust the camera
 			Camera mapCamera = GameObject.FindObjectOfType<Camera>();
 			if( mapCamera != null ){
@@ -160,6 +167,7 @@ public class MapView : MonoBehaviour {
 
 		PlayerController playerCont = player.GetComponent<PlayerController> ();
 		playerCont.setPlayerId (id);
+		playerCont.GameController = gameController;
 		gameController.addPlayer ( playerCont );
 	}
 
@@ -201,6 +209,12 @@ public class MapView : MonoBehaviour {
 		obj.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, obj.gameObject.transform.position.y, -this.mapModel.Height/2f+ position.y +0.5f);
 
 		obj.GetComponent<CollectibleController> ().Collectible = collectible;
+	}
+
+	private void createTarget( TargetElement target ){
+		Vector2 position = target.position;
+		GameObject obj = Instantiate( TargetPrefab, this.transform );
+		obj.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, obj.gameObject.transform.position.y, -this.mapModel.Height/2f+ position.y +0.5f);
 	}
 
 	private GameObject createWall( int x, int y ){

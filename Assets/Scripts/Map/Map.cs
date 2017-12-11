@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using TargetElement = MapElement;
+
 // a map is a grid graph composed of tiles with different values
 public class Map {
 	
@@ -31,6 +33,7 @@ public class Map {
 	private List<BridgeElement> bridges;				// Bridges
 	private List<BridgeButton> bridgeButtons;			// Buttons that activate bridges
 	private List<CollectibleElement> collectibles;		// Collectibles
+	private TargetElement playerTarget;			// Position of the player target
 
 	public Map( int height, int width ){
 		this.height = height;
@@ -39,6 +42,7 @@ public class Map {
 		this.bridges = new List<BridgeElement>();
 		this.bridgeButtons = new List<BridgeButton>();
 		this.collectibles = new List<CollectibleElement> ();
+		this.playerTarget = new TargetElement (new Vector2 (0, 0));
 
 		// Creating empty matrix
 		this.mapTiles = new TileInfo[height][];
@@ -91,6 +95,14 @@ public class Map {
 		}
 		set {
 			collectibles = value;
+		}
+	}
+	public TargetElement PlayerTarget {
+		get {
+			return playerTarget;
+		}
+		set {
+			playerTarget = value;
 		}
 	}
 
@@ -196,6 +208,17 @@ public class Map {
 			else{
 				Debug.LogError ( "Map: incorrect player spawner position" );
 				throw new UnityEngine.UnityException( "Map: incorrect player spawner position" );
+			}
+
+			// Target
+			int playerTargetX = int.Parse( lines[lineIt][0] );
+			int playerTargetY = int.Parse( lines[lineIt][1] );
+			lineIt++;
+			if( m.isUsefulPosition( playerTargetX, playerTargetY ) ){
+				m.playerTarget = new TargetElement( new Vector2(playerTargetX, playerTargetY) );
+			}
+			else{
+				throw new UnityEngine.UnityException( "Map: incorrect player target position" );
 			}
 
 			// Bridges
