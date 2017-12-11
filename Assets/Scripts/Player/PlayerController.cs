@@ -66,4 +66,16 @@ public class PlayerController : MonoBehaviour {
 			playerHit.hit ();
 		}
 	}
+
+	// Collisions to Collectible
+	public bool collectScore( int value ){
+		player.addScore ( value );
+		Debug.Log ( "Score" );
+		return true;
+	}
+	public bool collectStar( int value ){
+		player.addScore ( value );
+		Debug.Log ( "Star" );
+		return true;
+	}
 }

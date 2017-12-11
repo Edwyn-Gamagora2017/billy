@@ -28,8 +28,9 @@ public class Map {
 	int width;							// Map width
 	private TileInfo[][] mapTiles;		// the grid of tile
 	private Vector2 playerSpawnerPosition;	// Position of the player spawner
-	private List<BridgeElement> bridges;		// Bridges
-	private List<BridgeButton> bridgeButtons;	// Buttons that activate bridges
+	private List<BridgeElement> bridges;				// Bridges
+	private List<BridgeButton> bridgeButtons;			// Buttons that activate bridges
+	private List<CollectibleElement> collectibles;		// Collectibles
 
 	public Map( int height, int width ){
 		this.height = height;
@@ -37,6 +38,7 @@ public class Map {
 		this.playerSpawnerPosition = new Vector2();
 		this.bridges = new List<BridgeElement>();
 		this.bridgeButtons = new List<BridgeButton>();
+		this.collectibles = new List<CollectibleElement> ();
 
 		// Creating empty matrix
 		this.mapTiles = new TileInfo[height][];
@@ -81,6 +83,14 @@ public class Map {
 		}
 		set {
 			bridgeButtons = value;
+		}
+	}
+	public List<CollectibleElement> Collectibles {
+		get {
+			return collectibles;
+		}
+		set {
+			collectibles = value;
 		}
 	}
 
@@ -230,6 +240,23 @@ public class Map {
 					}
 				}
 				lineIt++;
+			}
+
+			// Collectibles
+			int amountCollectibles = int.Parse(lines[lineIt][0]);
+			lineIt++;
+			for( int x = 0; x < amountCollectibles; x++ ){
+				int collectibleX = int.Parse( lines[lineIt][0] );
+				int collectibleY = int.Parse( lines[lineIt][1] );
+				CollectibleElement.CollectibleType collectibleType = (CollectibleElement.CollectibleType)int.Parse( lines[lineIt][2] );
+				lineIt++;
+
+				if( m.isUsefulPosition( collectibleX, collectibleY ) ){
+					m.Collectibles.Add( new CollectibleElement( collectibleType, new Vector2( collectibleX, collectibleY ) ) );
+				}
+				else{
+					throw new UnityEngine.UnityException( "Map: incorrect collectible position" );
+				}
 			}
 
 			return m;

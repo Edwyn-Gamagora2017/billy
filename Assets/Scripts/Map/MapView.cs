@@ -41,6 +41,8 @@ public class MapView : MonoBehaviour {
 	GameObject bridgePrefab;
 	[SerializeField]
 	GameObject bridgeButtonPrefab;
+	[SerializeField]
+	GameObject CollectiblePrefab;
 
 	[SerializeField]
 	GameController gameController;	// Controls the game rules
@@ -91,6 +93,10 @@ public class MapView : MonoBehaviour {
 			}
 			foreach( BridgeButton button in this.mapModel.BridgeButtons ){
 				this.createBridgeButton( button );
+			}
+			// Create Collectibles
+			foreach( CollectibleElement collectible in this.mapModel.Collectibles ){
+				this.createCollectible ( collectible );
 			}
 			// Adjust the camera
 			Camera mapCamera = GameObject.FindObjectOfType<Camera>();
@@ -187,6 +193,14 @@ public class MapView : MonoBehaviour {
 		for( int i = 0; i < bridgeButton.Bridges.Count; i++ ){
 			action.addBridge( this.bridges[ bridgeButton.Bridges[ i ].Index ] );
 		}
+	}
+
+	private void createCollectible( CollectibleElement collectible ){
+		Vector2 position = collectible.position;
+		GameObject obj = Instantiate( CollectiblePrefab, this.transform );
+		obj.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, obj.gameObject.transform.position.y, -this.mapModel.Height/2f+ position.y +0.5f);
+
+		obj.GetComponent<CollectibleController> ().Collectible = collectible;
 	}
 
 	private GameObject createWall( int x, int y ){

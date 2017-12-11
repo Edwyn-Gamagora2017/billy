@@ -10,11 +10,12 @@ public class BridgeAction : HitColliderAction {
 		this.bridges.Add( action );
 	}
 
-	public override void action(){
+	protected override bool action(){
 		foreach( BridgeController bridge in bridges ){
 			bridge.activateBridge();
 		}
 		this.GetComponent<ChangeColor>().change();
+		return true;
 	}
 
 	void Awake(){

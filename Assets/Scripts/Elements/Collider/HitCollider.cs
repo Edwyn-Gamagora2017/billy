@@ -22,7 +22,7 @@ public class HitCollider : MonoBehaviour {
 			hitByPlayer = playerHit.Player;
 			playerHit.finishHit ();
 
-			this.GetComponentInParent<HitColliderAction> ().action ();
+			this.GetComponentInParent<HitColliderAction> ().hitAction ();
 		}
 	}
 
