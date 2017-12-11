@@ -66,4 +66,10 @@ public class PlayerController : MonoBehaviour {
 			playerHit.hit ();
 		}
 	}
+
+	// Collision to Collectible
+	public bool collect(){
+		Debug.Log ("Collected");
+		return true;
+	}
 }
