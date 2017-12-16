@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	private Player player;
+	private GameController gameController;
 
 	float moveStep = 4f;
 	float rotationStep = 3f;
@@ -26,6 +27,12 @@ public class PlayerController : MonoBehaviour {
 	}
 	public void setPlayerId(int id){
 		this.player = new Player(id);
+	}
+
+	public GameController GameController {
+		set {
+			gameController = value;
+		}
 	}
 
 	void Awake(){
@@ -65,5 +72,26 @@ public class PlayerController : MonoBehaviour {
 		if( Input.GetKeyDown( KeyCode.W ) ){
 			playerHit.hit ();
 		}
+	}
+
+	// Collisions to Collectible
+	public bool collectScore( int value ){
+		player.addScore ( value );
+		Debug.Log ( "Score" );
+		return true;
+	}
+	public bool collectStar( int value ){
+		player.addScore ( value );
+		Debug.Log ( "Star" );
+		return true;
+	}
+
+	// Collisions to Target
+	public bool reachTarget(){
+		Debug.Log ( "Target" );
+		if (this.gameController != null) {
+			this.gameController.rebornPlayer( this );
+		}
+		return true;
 	}
 }

@@ -20,6 +20,9 @@
 # player
 1 8
 
+# target
+1 1
+
 # bridges
 2
 
@@ -37,3 +40,12 @@
 # button 0
 2 7
 2 0 1
+
+# collectibles
+2
+
+# collectible : x y type(0:score;1:star) score
+# collectible 0
+6 5 0
+# collectible 1
+6 6 1

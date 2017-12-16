@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using TargetElement = MapElement;
 using BlockElement = MapElement;
-
 // a map is a grid graph composed of tiles with different values
 public class Map {
 	
@@ -30,8 +30,8 @@ public class Map {
 	int width;							// Map width
 	private TileInfo[][] mapTiles;		// the grid of tile
 	private Vector2 playerSpawnerPosition;	// Position of the player spawner
-	private List<BridgeElement> bridges;		// Bridges
-	private List<BridgeButton> bridgeButtons;	// Buttons that activate bridges
+	private List<CollectibleElement> collectibles;		// Collectibles
+	private TargetElement playerTarget;			// Position of the player target
 	private List<BlockElement> blocks;		// Blocks
 
 	public Map( int height, int width ){
@@ -40,6 +40,8 @@ public class Map {
 		this.playerSpawnerPosition = new Vector2();
 		this.bridges = new List<BridgeElement>();
 		this.bridgeButtons = new List<BridgeButton>();
+		this.collectibles = new List<CollectibleElement> ();
+		this.playerTarget = new TargetElement (new Vector2 (0, 0));
 		this.blocks = new List<BlockElement>();
 
 		// Creating empty matrix
@@ -85,6 +87,22 @@ public class Map {
 		}
 		set {
 			bridgeButtons = value;
+		}
+	}
+	public List<CollectibleElement> Collectibles {
+		get {
+			return collectibles;
+		}
+		set {
+			collectibles = value;
+		}
+	}
+	public TargetElement PlayerTarget {
+		get {
+			return playerTarget;
+		}
+		set {
+			playerTarget = value;
 		}
 	}
 	public List<BlockElement> Blocks {
@@ -200,6 +218,17 @@ public class Map {
 				throw new UnityEngine.UnityException( "Map: incorrect player spawner position" );
 			}
 
+			// Target
+			int playerTargetX = int.Parse( lines[lineIt][0] );
+			int playerTargetY = int.Parse( lines[lineIt][1] );
+			lineIt++;
+			if( m.isUsefulPosition( playerTargetX, playerTargetY ) ){
+				m.playerTarget = new TargetElement( new Vector2(playerTargetX, playerTargetY) );
+			}
+			else{
+				throw new UnityEngine.UnityException( "Map: incorrect player target position" );
+			}
+
 			// Bridges
 			int amountBridges = int.Parse(lines[lineIt][0]);
 			lineIt++;
@@ -257,6 +286,23 @@ public class Map {
 				}
 				else{
 					throw new UnityEngine.UnityException( "Map: incorrect block position" );
+				}
+			}
+
+			// Collectibles
+			int amountCollectibles = int.Parse(lines[lineIt][0]);
+			lineIt++;
+			for( int x = 0; x < amountCollectibles; x++ ){
+				int collectibleX = int.Parse( lines[lineIt][0] );
+				int collectibleY = int.Parse( lines[lineIt][1] );
+				CollectibleElement.CollectibleType collectibleType = (CollectibleElement.CollectibleType)int.Parse( lines[lineIt][2] );
+				lineIt++;
+
+				if( m.isUsefulPosition( collectibleX, collectibleY ) ){
+					m.Collectibles.Add( new CollectibleElement( collectibleType, new Vector2( collectibleX, collectibleY ) ) );
+				}
+				else{
+					throw new UnityEngine.UnityException( "Map: incorrect collectible position" );
 				}
 			}
 

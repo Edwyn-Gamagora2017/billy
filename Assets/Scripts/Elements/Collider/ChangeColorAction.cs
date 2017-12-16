@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class ChangeColorAction : HitColliderAction {
 
-	public override void action(){
-		GetComponent<ChangeColor>().change();
+	protected override bool action(){
+		ChangeColor cc = GetComponent<ChangeColor> ();
+		if (cc == null) {
+			return false;
+		} else {
+			GetComponent<ChangeColor>().change();
+			return true;
+		}
 	}
 
 	// Use this for initialization
