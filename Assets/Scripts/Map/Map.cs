@@ -9,7 +9,7 @@ public class Map {
 	
 	// Type of a map tile : it is associated to a value for the tile
 	public enum MapTileType{
-		Floor, Wall, Hole, Carpet, NotDefined
+		Floor, Wall, Barrier, Hole, Carpet, NotDefined
 	};
 
 	// Class to be used to store a vertex in the graph
@@ -30,6 +30,8 @@ public class Map {
 	int width;							// Map width
 	private TileInfo[][] mapTiles;		// the grid of tile
 	private Vector2 playerSpawnerPosition;	// Position of the player spawner
+	private List<BridgeElement> bridges;				// Bridges
+	private List<BridgeButton> bridgeButtons;	// Buttons that activate bridges
 	private List<CollectibleElement> collectibles;		// Collectibles
 	private TargetElement playerTarget;			// Position of the player target
 	private List<BlockElement> blocks;		// Blocks
@@ -146,7 +148,7 @@ public class Map {
 		return this.isDefinedTile( x,y ) && this.mapTiles[y][x].type == MapTileType.Hole;
 	}
 	public bool isUsefulPosition( int x, int y ){
-		return this.isDefinedTile( x,y ) && this.mapTiles[y][x].type != MapTileType.Wall && this.mapTiles[y][x].type != MapTileType.Hole;
+		return this.isDefinedTile( x,y ) && this.mapTiles[y][x].type != MapTileType.Wall && this.mapTiles[y][x].type != MapTileType.Barrier && this.mapTiles[y][x].type != MapTileType.Hole;
 	}
 
 	public static MapTileType typeIndexToType( int typeIndex )
@@ -272,22 +274,6 @@ public class Map {
 				}
 				lineIt++;
 			}
-				
-			// Barriers
-			int amountBlocks = int.Parse(lines[lineIt][0]);
-			lineIt++;
-			for( int x = 0; x < amountBlocks; x++ ){
-				int blockX = int.Parse( lines[lineIt][0] );
-				int blockY = int.Parse( lines[lineIt][1] );
-				lineIt++;
-
-				if( m.isUsefulPosition( blockX, blockY ) ){
-					m.Blocks.Add( new BlockElement( new Vector2( blockX, blockY ) ) );
-				}
-				else{
-					throw new UnityEngine.UnityException( "Map: incorrect block position" );
-				}
-			}
 
 			// Collectibles
 			int amountCollectibles = int.Parse(lines[lineIt][0]);
@@ -303,6 +289,22 @@ public class Map {
 				}
 				else{
 					throw new UnityEngine.UnityException( "Map: incorrect collectible position" );
+				}
+			}
+
+			// Barriers
+			int amountBlocks = int.Parse(lines[lineIt][0]);
+			lineIt++;
+			for( int x = 0; x < amountBlocks; x++ ){
+				int blockX = int.Parse( lines[lineIt][0] );
+				int blockY = int.Parse( lines[lineIt][1] );
+				lineIt++;
+
+				if( m.isUsefulPosition( blockX, blockY ) ){
+					m.Blocks.Add( new BlockElement( new Vector2( blockX, blockY ) ) );
+				}
+				else{
+					throw new UnityEngine.UnityException( "Map: incorrect block position" );
 				}
 			}
 

@@ -1,23 +1,24 @@
 # 0 : Floor
 # 1 : Wall
-# 2 : Hole
+# 2 : Barrier
+# 3 : Hole
 
 # Map format: H W
 10 8
 
 # Map format: types ( 0,0 -> bottom left ); it will ignore values that are not types (such as 5, in this example)
 1 1 1 1 1 1 1 1
-1 0 1 0 2 0 0 1
-1 0 0 0 2 0 1 1
-1 0 0 0 2 0 0 1
-1 2 2 0 2 0 0 1
-1 2 2 1 1 1 1 1
+1 0 1 0 3 0 0 1
+1 0 0 0 3 0 1 1
+1 0 0 0 3 0 0 1
+1 3 3 0 3 0 0 1
+1 3 3 1 1 2 1 1
 1 0 0 0 1 0 0 1
-1 0 1 0 0 0 0 1
+1 0 2 0 0 0 0 2
 1 0 1 0 0 0 0 1
 1 1 1 1 1 1 1 1
 
-# player
+# player spawner
 1 8
 
 # target
@@ -32,12 +33,12 @@
 # bridge 1
 2 1 5 1 1
 
-# buttons
+# bridge buttons
 1
 
-# button : x y
-# button : nBridges nBridges*bridge_index
-# button 0
+# bridge button : x y
+# bridge button : nBridges nBridges*bridge_index
+# bridge button 0
 2 7
 2 0 1
 
@@ -49,3 +50,9 @@
 6 5 0
 # collectible 1
 6 6 1
+
+# blocks
+1
+
+# block : x y
+6 1

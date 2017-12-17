@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.4430062, g: 0.492195, b: 0.571924, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -251,7 +251,6 @@ Transform:
   - {fileID: 1108398620}
   - {fileID: 354815554}
   - {fileID: 1194651732}
-  - {fileID: 690214123}
   - {fileID: 1142766535}
   - {fileID: 580527673}
   m_Father: {fileID: 0}
@@ -721,10 +720,10 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.61
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -748,13 +747,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 797215259}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.48296294, y: -0.22414385, z: 0.1294095, w: 0.8365163}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: -30, z: 0}
 --- !u!1 &942567524
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,7 +769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &942567525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,11 +802,15 @@ MonoBehaviour:
     type: 2}
   bridgeButtonPrefab: {fileID: 1877787281550270, guid: 40aee4654b72f4042b30162b4f20d206,
     type: 2}
-  blockPrefab: {fileID: 1159237169487336, guid: 7932b40a05013494f88cd57da89b51af,
-    type: 2}
   CollectiblePrefab: {fileID: 1420607071547044, guid: ff1f651c1f98cde4e843baf4f2220da7,
     type: 2}
   TargetPrefab: {fileID: 1894676285130368, guid: 7b3d1956a099b5642a6d1ae10891ca2d,
+    type: 2}
+  barrierCornerPrefab: {fileID: 1778099894720222, guid: ff4e9accb7301b04c9dddc39626b022f,
+    type: 2}
+  barrierLinePrefab: {fileID: 1385888245912404, guid: 34ee6ac1d0d4fe745986c2754e9e9e61,
+    type: 2}
+  blockPrefab: {fileID: 1159237169487336, guid: 7932b40a05013494f88cd57da89b51af,
     type: 2}
   gameController: {fileID: 479813357}
   tilesContainer: {fileID: 1984312245}
