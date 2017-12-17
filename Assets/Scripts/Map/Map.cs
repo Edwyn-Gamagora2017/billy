@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using TargetElement = MapElement;
-
+using BlockElement = MapElement;
 // a map is a grid graph composed of tiles with different values
 public class Map {
 	
 	// Type of a map tile : it is associated to a value for the tile
 	public enum MapTileType{
-		Floor, Wall, Hole, Carpet, NotDefined
+		Floor, Wall, Barrier, Hole, Carpet, NotDefined
 	};
 
 	// Class to be used to store a vertex in the graph
@@ -31,9 +31,10 @@ public class Map {
 	private TileInfo[][] mapTiles;		// the grid of tile
 	private Vector2 playerSpawnerPosition;	// Position of the player spawner
 	private List<BridgeElement> bridges;				// Bridges
-	private List<BridgeButton> bridgeButtons;			// Buttons that activate bridges
+	private List<BridgeButton> bridgeButtons;	// Buttons that activate bridges
 	private List<CollectibleElement> collectibles;		// Collectibles
 	private TargetElement playerTarget;			// Position of the player target
+	private List<BlockElement> blocks;		// Blocks
 
 	public Map( int height, int width ){
 		this.height = height;
@@ -43,6 +44,7 @@ public class Map {
 		this.bridgeButtons = new List<BridgeButton>();
 		this.collectibles = new List<CollectibleElement> ();
 		this.playerTarget = new TargetElement (new Vector2 (0, 0));
+		this.blocks = new List<BlockElement>();
 
 		// Creating empty matrix
 		this.mapTiles = new TileInfo[height][];
@@ -105,6 +107,14 @@ public class Map {
 			playerTarget = value;
 		}
 	}
+	public List<BlockElement> Blocks {
+		get {
+			return blocks;
+		}
+		set {
+			blocks = value;
+		}
+	}
 
 	/*GETTERS*/
 	public MapTileType getTileType(int x, int y){
@@ -138,7 +148,7 @@ public class Map {
 		return this.isDefinedTile( x,y ) && this.mapTiles[y][x].type == MapTileType.Hole;
 	}
 	public bool isUsefulPosition( int x, int y ){
-		return this.isDefinedTile( x,y ) && this.mapTiles[y][x].type != MapTileType.Wall && this.mapTiles[y][x].type != MapTileType.Hole;
+		return this.isDefinedTile( x,y ) && this.mapTiles[y][x].type != MapTileType.Wall && this.mapTiles[y][x].type != MapTileType.Barrier && this.mapTiles[y][x].type != MapTileType.Hole;
 	}
 
 	public static MapTileType typeIndexToType( int typeIndex )
@@ -189,7 +199,7 @@ public class Map {
 
 			Map m = new Map(height, width);
 
-			// Vertices
+			// Tiles
 			for (int y = 0; y < height; y++) {
 				string[] mapLine = lines[lineIt];
 				lineIt++;
@@ -279,6 +289,22 @@ public class Map {
 				}
 				else{
 					throw new UnityEngine.UnityException( "Map: incorrect collectible position" );
+				}
+			}
+
+			// Barriers
+			int amountBlocks = int.Parse(lines[lineIt][0]);
+			lineIt++;
+			for( int x = 0; x < amountBlocks; x++ ){
+				int blockX = int.Parse( lines[lineIt][0] );
+				int blockY = int.Parse( lines[lineIt][1] );
+				lineIt++;
+
+				if( m.isUsefulPosition( blockX, blockY ) ){
+					m.Blocks.Add( new BlockElement( new Vector2( blockX, blockY ) ) );
+				}
+				else{
+					throw new UnityEngine.UnityException( "Map: incorrect block position" );
 				}
 			}
 

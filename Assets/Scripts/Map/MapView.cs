@@ -4,6 +4,8 @@ using UnityEngine;
 
 using TargetElement = MapElement;
 
+using BlockElement = MapElement;
+
 public class MapView : MonoBehaviour {
 
 	Map mapModel;			// stores the map information
@@ -47,6 +49,12 @@ public class MapView : MonoBehaviour {
 	GameObject CollectiblePrefab;
 	[SerializeField]
 	GameObject TargetPrefab;
+	[SerializeField]
+	GameObject barrierCornerPrefab;
+	[SerializeField]
+	GameObject barrierLinePrefab;
+	[SerializeField]
+	GameObject blockPrefab;
 
 	[SerializeField]
 	GameController gameController;	// Controls the game rules
@@ -105,6 +113,10 @@ public class MapView : MonoBehaviour {
 			// Create Target
 			this.createTarget( this.mapModel.PlayerTarget );
 
+			// Create Blocks
+			foreach( BlockElement block in this.mapModel.Blocks ){
+				this.createBlock( block );
+			}
 			// Adjust the camera
 			Camera mapCamera = GameObject.FindObjectOfType<Camera>();
 			if( mapCamera != null ){
@@ -143,6 +155,11 @@ public class MapView : MonoBehaviour {
 		switch( type ){
 		case Map.MapTileType.Wall:
 			result = createWall (Mathf.RoundToInt (x), Mathf.RoundToInt (y));
+			tilePosition.y = 0.9f;
+			createMapTileView (x, y, Map.MapTileType.Floor);
+			break;
+		case Map.MapTileType.Barrier:
+			result = createBarrier (Mathf.RoundToInt (x), Mathf.RoundToInt (y));
 			tilePosition.y = 0.9f;
 			createMapTileView (x, y, Map.MapTileType.Floor);
 			break;
@@ -201,6 +218,11 @@ public class MapView : MonoBehaviour {
 		for( int i = 0; i < bridgeButton.Bridges.Count; i++ ){
 			action.addBridge( this.bridges[ bridgeButton.Bridges[ i ].Index ] );
 		}
+	}
+	private void createBlock( BlockElement block ){
+		Vector2 position = block.position;
+		GameObject obj = Instantiate( blockPrefab, this.transform );
+		obj.gameObject.transform.position = new Vector3(-this.mapModel.Width/2f+ position.x +0.5f, obj.transform.localScale.y/2f, -this.mapModel.Height/2f+ position.y +0.5f);
 	}
 
 	private void createCollectible( CollectibleElement collectible ){
@@ -285,8 +307,60 @@ public class MapView : MonoBehaviour {
 		return null;
 	}
 
+	private GameObject createBarrier( int x, int y ){
+		// Evaluate Neigbors
+		GameObject result;
+		switch( amountWallNeighbors( x,y ) ){
+		// One Neighbor
+		case 1:
+			result = GameObject.Instantiate (barrierCornerPrefab, tilesContainer.transform);
+			if( isWallNeighbor(x+1,y) ){
+				result.gameObject.transform.rotation = Quaternion.Euler( 0,0,0 );
+//				result.GetComponent<BarrierController>().Horizontal = false;
+			}
+			else if( isWallNeighbor(x,y-1) ){
+				result.gameObject.transform.rotation = Quaternion.Euler( 0,90,0 );
+//				result.GetComponent<BarrierController>().Horizontal = true;
+			}
+			else if( isWallNeighbor(x-1,y) ){
+				result.gameObject.transform.rotation = Quaternion.Euler( 0,180,0 );
+//				result.GetComponent<BarrierController>().Horizontal = false;
+			}
+			else if( isWallNeighbor(x,y+1) ){
+				result.gameObject.transform.rotation = Quaternion.Euler( 0,270,0 );
+//				result.GetComponent<BarrierController>().Horizontal = true;
+			}
+			break;
+		// Two Neighbors
+		case 2:
+			// Colinear neigbors
+			if( isWallNeighbor(x,y-1) && isWallNeighbor(x,y+1) ){
+				result = GameObject.Instantiate (barrierLinePrefab, tilesContainer.transform);
+				result.gameObject.transform.rotation = Quaternion.Euler( 0,90,0 );
+//				result.GetComponent<BarrierController>().Horizontal = true;
+			}
+			else if( isWallNeighbor(x-1,y) && isWallNeighbor(x+1,y) ){
+				result = GameObject.Instantiate (barrierLinePrefab, tilesContainer.transform);
+				result.gameObject.transform.rotation = Quaternion.Euler( 0,0,0 );
+//				result.GetComponent<BarrierController>().Horizontal = false;
+			}
+			// Perpendicular Neighbors
+			else{
+				result = createWall(x,y);
+			}
+			break;
+		// Three or four Neighbors
+		case 3:
+		case 4:
+		default:
+			result = createWall(x,y);
+			break;
+		}
+		return result;
+	}
+
 	private bool isWallNeighbor( int x, int y ){
-		return mapModel.getTileType (x, y) == Map.MapTileType.Wall || mapModel.getTileType (x, y) == Map.MapTileType.Hole;
+		return mapModel.getTileType (x, y) == Map.MapTileType.Wall || mapModel.getTileType (x, y) == Map.MapTileType.Barrier || mapModel.getTileType (x, y) == Map.MapTileType.Hole;
 	}
 	private int amountWallNeighbors( int x, int y ){
 		int result = 0;

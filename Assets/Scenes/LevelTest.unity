@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.4430062, g: 0.492195, b: 0.571924, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -357,7 +357,7 @@ BoxCollider:
     type: 2}
   m_PrefabInternal: {fileID: 392264551}
   m_GameObject: {fileID: 300786778}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c6efe2d5d2e869f4d871d26c57904614, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -530,6 +530,12 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 65713943635588844, guid: c78f6ad54b5d94c4cabc35acea25ac3d,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: c6efe2d5d2e869f4d871d26c57904614,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c78f6ad54b5d94c4cabc35acea25ac3d, type: 2}
   m_IsPrefabParent: 0
@@ -714,10 +720,10 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.61
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -741,13 +747,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 797215259}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.48296294, y: -0.22414385, z: 0.1294095, w: 0.8365163}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: -30, z: 0}
 --- !u!1 &942567524
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +805,12 @@ MonoBehaviour:
   CollectiblePrefab: {fileID: 1420607071547044, guid: ff1f651c1f98cde4e843baf4f2220da7,
     type: 2}
   TargetPrefab: {fileID: 1894676285130368, guid: 7b3d1956a099b5642a6d1ae10891ca2d,
+    type: 2}
+  barrierCornerPrefab: {fileID: 1778099894720222, guid: ff4e9accb7301b04c9dddc39626b022f,
+    type: 2}
+  barrierLinePrefab: {fileID: 1385888245912404, guid: 34ee6ac1d0d4fe745986c2754e9e9e61,
+    type: 2}
+  blockPrefab: {fileID: 1159237169487336, guid: 7932b40a05013494f88cd57da89b51af,
     type: 2}
   gameController: {fileID: 479813357}
   tilesContainer: {fileID: 1984312245}
