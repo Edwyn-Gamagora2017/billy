@@ -185,5 +185,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b1cfb56d7846c345a1a52481ce8946e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreMaterial: {fileID: 2100000, guid: 5ee0f66c7eec5a543a280d893f5236b4, type: 2}
-  starMaterial: {fileID: 2100000, guid: 140d875c2adc32c41b0d303973fa10e4, type: 2}
+  scoreMaterial: {fileID: 2100000, guid: 140d875c2adc32c41b0d303973fa10e4, type: 2}
+  starMaterial: {fileID: 2100000, guid: 6b1880453ed74dc46ae46067b8c1b1b6, type: 2}
