@@ -25,6 +25,8 @@ public class MapView : MonoBehaviour {
 	[SerializeField]
 	GameObject wallBigPrefab;
 	[SerializeField]
+	GameObject wallOnePrefab;
+	[SerializeField]
 	GameObject wallCenterPrefab;
 	[SerializeField]
 	GameObject wallCornerPrefab;
@@ -249,9 +251,15 @@ public class MapView : MonoBehaviour {
 			switch( amountWallNeighbors( x,y ) ){
 			// One Neighbor
 			case 1:
-				result = GameObject.Instantiate (wallCenterPrefab, tilesContainer.transform);
-				if( isWallNeighbor(x-1,y) || isWallNeighbor(x+1,y) ){
+				result = GameObject.Instantiate (wallOnePrefab, tilesContainer.transform);
+				if( isWallNeighbor(x-1,y) ){
 					result.gameObject.transform.rotation = Quaternion.Euler( 0,90,0 );
+				}
+				else if( isWallNeighbor(x,y+1) ){
+					result.gameObject.transform.rotation = Quaternion.Euler( 0,180,0 );
+				}
+				else if( isWallNeighbor(x+1,y) ){
+					result.gameObject.transform.rotation = Quaternion.Euler( 0,270,0 );
 				}
 				break;
 			// Two Neighbors

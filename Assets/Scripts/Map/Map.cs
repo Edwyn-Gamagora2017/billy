@@ -246,7 +246,7 @@ public class Map {
 					m.Bridges.Add( new BridgeElement( x, bridge_length, bridge_closed, bridge_orientation, new Vector2( bridgeX, bridgeY ) ) );
 				}
 				else{
-					throw new UnityEngine.UnityException( "Map: bridge must be in a hole" );
+					throw new UnityEngine.UnityException( "Map: bridge "+x+" must be in a hole" );
 				}
 			}
 
@@ -262,7 +262,7 @@ public class Map {
 					m.BridgeButtons.Add( new BridgeButton( new Vector2( bridgeButtonX, bridgeButtonY ) ) );
 				}
 				else{
-					throw new UnityEngine.UnityException( "Map: incorrect bridge button position" );
+					throw new UnityEngine.UnityException( "Map: incorrect bridge button "+x+" position" );
 				}
 				// Associating Bridges
 				int amountBridges_BridgeButtons = int.Parse(lines[lineIt][0]);
@@ -288,7 +288,7 @@ public class Map {
 					m.Collectibles.Add( new CollectibleElement( collectibleType, new Vector2( collectibleX, collectibleY ) ) );
 				}
 				else{
-					throw new UnityEngine.UnityException( "Map: incorrect collectible position" );
+					throw new UnityEngine.UnityException( "Map: incorrect collectible "+x+" position" );
 				}
 			}
 
@@ -304,7 +304,7 @@ public class Map {
 					m.Blocks.Add( new BlockElement( new Vector2( blockX, blockY ) ) );
 				}
 				else{
-					throw new UnityEngine.UnityException( "Map: incorrect block position" );
+					throw new UnityEngine.UnityException( "Map: incorrect block "+x+" position" );
 				}
 			}
 

@@ -9,8 +9,8 @@ public class GameController : MonoBehaviour {
 	[SerializeField]
 	MapView map;
 
-	float moveBoardStep = 30f;
-	float maxMoveBoard = 45f;
+	float moveBoardStep = 70f;
+	float maxMoveBoard = 15f;
 
 	// Map Rotation
 	float mapXrotation;
@@ -63,11 +63,27 @@ public class GameController : MonoBehaviour {
 		else if( Input.GetKey(KeyCode.Keypad8) ){
 			moveBoard( 0, moveBoardStep*Time.deltaTime );
 		}
+		else{
+			if( mapXrotation < 0 ){
+				moveBoard( 0, Mathf.Min( moveBoardStep*Time.deltaTime, -mapXrotation ) );
+			}
+			else if( mapXrotation > 0 ){
+				moveBoard( 0, Mathf.Max( -moveBoardStep*Time.deltaTime, -mapXrotation ) );
+			}
+		}
 		if( Input.GetKey(KeyCode.Keypad4) ){
 			moveBoard( moveBoardStep*Time.deltaTime, 0 );
 		}
 		else if( Input.GetKey(KeyCode.Keypad6) ){
 			moveBoard( -moveBoardStep*Time.deltaTime, 0 );
+		}
+		else{
+			if( mapZrotation < 0 ){
+				moveBoard( Mathf.Min( moveBoardStep*Time.deltaTime, -mapZrotation ), 0 );
+			}
+			else if( mapZrotation > 0 ){
+				moveBoard( Mathf.Max( -moveBoardStep*Time.deltaTime, -mapZrotation ), 0 );
+			}
 		}
 	}
 }
