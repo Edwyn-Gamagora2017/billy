@@ -816,7 +816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012c20d1b3cbfc84aa45b8a7291b6f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapFile: {fileID: 4900000, guid: 107cd41bfc91f04478a9259ef75e4e72, type: 3}
+  mapFile: {fileID: 4900000, guid: c81b9195082a8cf469369eb80205ca7f, type: 3}
   useThinWall: 1
   wallBigPrefab: {fileID: 1203723691025132, guid: 549c702052de1c6468e769a223a4958f,
     type: 2}

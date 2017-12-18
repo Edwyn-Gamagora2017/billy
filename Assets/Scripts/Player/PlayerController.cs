@@ -56,20 +56,20 @@ public class PlayerController : MonoBehaviour {
 		}
 		old_y_position = this.transform.position.y;
 		// Move
-		if( Input.GetKey( KeyCode.LeftArrow ) ){
+		if( Input.GetKey( KeyCode.LeftArrow ) || Input.GetKey( KeyCode.A ) ){
 			this.transform.Rotate ( new Vector3(0,-moveStep,0) );
 		}
-		if( Input.GetKey( KeyCode.RightArrow ) ){
+		if( Input.GetKey( KeyCode.RightArrow ) || Input.GetKey( KeyCode.D ) ){
 			this.transform.Rotate ( new Vector3(0,moveStep,0) );
 		}
-		if( Input.GetKey( KeyCode.UpArrow ) ){
+		if( Input.GetKey( KeyCode.UpArrow ) || Input.GetKey( KeyCode.W ) ){
 			//this.rigidyBody.AddForce( this.transform.forward*moveStep*Time.deltaTime, ForceMode.VelocityChange );
 			this.rigidyBody.MovePosition( this.rigidyBody.position + this.transform.forward*moveStep*Time.deltaTime );
 			//this.transform.position += new Vector3 ( 0, 0, moveStep );
 		}
 
 		// Hit
-		if( Input.GetKeyDown( KeyCode.W ) ){
+		if( Input.GetKeyDown( KeyCode.H ) ){
 			playerHit.hit ();
 		}
 	}
