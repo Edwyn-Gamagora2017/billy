@@ -847,7 +847,7 @@ MonoBehaviour:
     type: 2}
   barrierLinePrefab: {fileID: 1385888245912404, guid: 34ee6ac1d0d4fe745986c2754e9e9e61,
     type: 2}
-  blockPrefab: {fileID: 1159237169487336, guid: 7932b40a05013494f88cd57da89b51af,
+  blockPrefab: {fileID: 1291428481563174, guid: 5661d00436101e449a369d86520a0ae2,
     type: 2}
   gameController: {fileID: 479813357}
   tilesContainer: {fileID: 1984312245}
