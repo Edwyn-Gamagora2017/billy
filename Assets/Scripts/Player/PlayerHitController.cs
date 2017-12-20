@@ -5,13 +5,15 @@ using UnityEngine;
 public class PlayerHitController : MonoBehaviour {
 
 	[SerializeField]
-	PlayerController player;
+	PlayerHitView playerHit;
+	[SerializeField]
+	PlayerController playerController;
 
 	protected bool hitActivate;		// indicates that the hit was activated
 
 	public PlayerController Player {
 		get {
-			return player;
+			return playerController;
 		}
 	}
 
@@ -23,7 +25,7 @@ public class PlayerHitController : MonoBehaviour {
 
 	public void hit(){
 		this.hitActivate = true;
-		this.GetComponent<PlayerHitView> ().hit();
+		playerHit.hit();
 	}
 
 	public void finishHit(){

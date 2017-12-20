@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController_old : MonoBehaviour {
+
 	private Player player;
 	private GameController gameController;
 
@@ -14,9 +15,7 @@ public class PlayerController : MonoBehaviour {
 	Rigidbody rigidyBody;	// RigidyBody useful to apply forces
 
 	[SerializeField]
-	PlayerHitView playerHit;
-	[SerializeField]
-	PlayerHitController playerHitController;
+	PlayerHitController playerHit;
 
 	/**
 	 * GETTERS and SETTERS
@@ -46,7 +45,7 @@ public class PlayerController : MonoBehaviour {
 			player = new Player (-1);
 		}
 	}
-
+	
 	// Update is called once per frame
 	void FixedUpdate () {
 		// Jump
@@ -66,16 +65,12 @@ public class PlayerController : MonoBehaviour {
 		if( Input.GetKey( KeyCode.UpArrow ) || Input.GetKey( KeyCode.W ) ){
 			//this.rigidyBody.AddForce( this.transform.forward*moveStep*Time.deltaTime, ForceMode.VelocityChange );
 			this.rigidyBody.MovePosition( this.rigidyBody.position + this.transform.forward*moveStep*Time.deltaTime );
-			playerHit.walk();
 			//this.transform.position += new Vector3 ( 0, 0, moveStep );
-		}
-		else{
-			playerHit.walk_stop();
 		}
 
 		// Hit
 		if( Input.GetKeyDown( KeyCode.H ) ){
-			playerHitController.hit();
+			playerHit.hit ();
 		}
 	}
 
@@ -95,7 +90,7 @@ public class PlayerController : MonoBehaviour {
 	public bool reachTarget(){
 		Debug.Log ( "Target" );
 		if (this.gameController != null) {
-			this.gameController.rebornPlayer( this );
+//			this.gameController.rebornPlayer( this );
 		}
 		return true;
 	}
